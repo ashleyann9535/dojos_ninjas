@@ -1,0 +1,52 @@
+
+h1{
+    color: #9BA3EB;
+}
+
+form label{
+    display: block;
+    color: #fff;
+    margin-top: 15px;
+}
+
+p{
+    color: #fff;
+}
+
+.margin_left{
+    margin-left: 30%;
+}
+
+.container{
+    margin: 30px auto;
+    width: 40%;
+    padding: 30px;
+    background-color: #3E2C41;
+}
+
+.wrap{
+    display: flex;
+    justify-content: space-around;
+}
+
+.wrap ul{
+    list-style: none;
+}
+
+.wrap a{
+    color: #fff;
+}
+
+.display_block{
+    display: block;
+    margin-top: 15px;
+    color: #3E2C41;
+}
+
+.fav_lang .radio{
+    display: inline;
+}
+
+.fav_lang input{
+    margin-left: 15px;
+}

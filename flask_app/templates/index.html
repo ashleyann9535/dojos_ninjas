@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojo and Ninjas</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+</head>
+<body>
+    <div class="container wrap">
+        <div class="new_dojo">
+            <h1>New Dojo</h1>
+            <form action="/create_dojo" method="POST">
+                <label for="name">Name:</label>
+                <input type="text" name="name" />
+                <input class="display_block" type="submit" value="Create" />
+            </form>
+        </div>
+        <div class="dojo_list">
+            <h1>Dojo List</h1>
+            <!-- Will need to add a loop here to display the created dojos -->
+            {% for one_dojo in all_dojos %}
+            <ul>
+                <li><a href="view/{{one_dojo.id}}">{{one_dojo.name}}</a></li>
+            </ul>
+            {% endfor %}
+        </div>
+    </div>
+    <a href="/create_ninja" class="margin_left">Create Ninja</a>
+</body>
+</html>
