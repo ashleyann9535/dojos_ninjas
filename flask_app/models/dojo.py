@@ -2,6 +2,8 @@ from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app.models import ninja
 
 class Dojo:
+    db = 'dojos_and_ninjas_schema'
+
     def __init__(self, data):
         self.id = data['id']
         self.name = data['name']
@@ -17,18 +19,33 @@ class Dojo:
             VALUES (%(name)s, NOW(), NOW())
         ;"""
 
-        return connectToMySQL('dojos_and_ninjas_schema').query_db(query, data)
+        return connectToMySQL(cls.db).query_db(query, data)
 
 
     @classmethod
     def get_dojo_with_ninjas(cls, id):
         data = {'id' : id}
         query = """
-        SELECT * FROM dojos LEFT JOIN ninjas ON dojos.id = ninjas.dojo_id WHERE dojos.id = %(id)s
+        SELECT * FROM dojos 
+        LEFT JOIN ninjas 
+        ON dojos.id = ninjas.dojo_id 
+        WHERE dojos.id = %(id)s
         ;"""
-        results = connectToMySQL('dojos_and_ninjas_schema').query_db(query, data)
+        results = connectToMySQL(cls.db).query_db(query, data)
 
-        return results
+        this_dojo = cls(results[0])
+
+        for one_ninja in results:
+            info = {
+                'id' : one_ninja['ninjas.id'],
+                'first_name' : one_ninja['first_name'],
+                'last_name' : one_ninja['last_name'],
+                'age' : one_ninja['age'],
+                'created_at' : one_ninja['ninjas.created_at'],
+                'updated_at' : one_ninja['ninjas.updated_at']
+            }
+            this_dojo.ninjas.append(ninja.Ninja(info))
+        return this_dojo
 
 #Read 
     @classmethod
@@ -37,7 +54,7 @@ class Dojo:
         SELECT * FROM dojos
         ;"""
 
-        results = connectToMySQL('dojos_and_ninjas_schema').query_db(query)
+        results = connectToMySQL(cls.db).query_db(query)
         dojos = []
 
         for dojo in results:

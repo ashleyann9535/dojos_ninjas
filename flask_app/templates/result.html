@@ -25,7 +25,7 @@
 <body>
     <div class="container">
       <!-- put in dojo_id -->
-      <h1>{{dojos_ninjas[0]['name']}}'s Ninjas</h1> 
+      <h1>{{dojos_ninjas.name}}'s Ninjas</h1> 
       <table class="table table-striped table-dark">
         <thead>
           
@@ -36,11 +36,11 @@
           </tr>
         </thead>
         <tbody>
-          {% for v in dojos_ninjas %}
+          {% for ninja in dojos_ninjas.ninjas %}
           <tr>
-            <td>{{v['first_name']}}</td>
-            <td>{{v['last_name']}}</td>
-            <td>{{v['age']}}</td>
+            <td>{{ninja.first_name}}</td>
+            <td>{{ninja.last_name}}</td>
+            <td>{{ninja.age}}</td>
           </tr>
           {% endfor %}
         </tbody>
